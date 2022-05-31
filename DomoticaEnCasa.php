@@ -28,6 +28,8 @@ if (isset($_POST['salon'])){
         fclose($archivo);
     }
 }
+//              PASILLO
+
 if (isset($_POST['pasillo'])){
     if ($_POST['pasillo'] == "Encender Luz"){
         $archivo = fopen("fichero.txt", "w");
@@ -169,6 +171,7 @@ if (isset($_POST['alarma'])){
         fclose($archivo);
     }
 }
+
 ?>
 
 
@@ -184,6 +187,7 @@ if (isset($_POST['alarma'])){
     <body>
         <div class="row">
             <div class="col-sm-12">
+                                                <!--SALON-->
                 <div class="col-sm-3" style="border: 1px solid black; float:left;background-color:#DFBD7C">
                     <h1 class="h1" style="text-align:center">Salon</h1>
                     <form action="./DomoticaEnCasa.php" method="POST" style="padding:10 auto;text-align:center;background-color:white; border: 2px solid black" >
@@ -201,6 +205,7 @@ if (isset($_POST['alarma'])){
                         <br>
                     </form>
                 </div>
+                                                <!--DORMITORIO-->
                 <div class="col-sm-3" style="border: 1px solid black;float:left;background-color:#DFBD7C">
                 <h1 class="h1" style="text-align:center">Dormitorio</h1>
 
@@ -223,6 +228,7 @@ if (isset($_POST['alarma'])){
                         <br>
                     </form>
                 </div>
+                                                <!--SALA MAQUINAS-->
                 <div class="col-sm-3" style="border: 1px solid black;float:left;background-color:#DFBD7C">
                     <h1 class="h1" style="text-align:center">Sala Maquinas</h1>
                     <form action="./DomoticaEnCasa.php" method="POST" style="padding:10 auto;text-align:center; border: 2px solid black;background-color:white">
@@ -242,6 +248,7 @@ if (isset($_POST['alarma'])){
                         <br>
                     </form>
                 </div>
+                                                        <!--ALARMA-->
                 <div class="col-sm-3" style="border: 1px solid black;float:left;background-color:#DFBD7C">
                     <h1 class="h1" style="text-align:center">Alarma</h1>
                     <form action="./DomoticaEnCasa.php" method="POST" style="padding:10 auto;text-align:center; border: 2px solid black;background-color:white">
@@ -266,6 +273,7 @@ if (isset($_POST['alarma'])){
         </div>
         <div class="row">
             <div class="col-sm-12">
+                                                    <!--COCINA-->
                 <div class="col-sm-3" style="border: 1px solid black;float:left;background-color:#DFBD7C">
                     <h1 class="h1" style="text-align:center">Cocina</h1>
                     <form action="./DomoticaEnCasa.php" method="POST" style="padding:10 auto;text-align:center; border: 2px solid black;background-color:white">
@@ -278,7 +286,7 @@ if (isset($_POST['alarma'])){
                         <br>
                     </form>
                 </div>
-                
+                                                    <!--BAÑO-->
                 <div class="col-sm-3" style="border: 1px solid black;float:left;background-color:#DFBD7C">
                     <h1 class="h1" style="text-align:center">Baño</h1>
                     <form action="./DomoticaEnCasa.php" method="POST" style="padding:10 auto;text-align:center; border: 2px solid black; background-color:white">
@@ -291,6 +299,7 @@ if (isset($_POST['alarma'])){
                         <br>
                     </form>
                 </div>
+                                                    <!--GARAJE-->
                 <div class="col-sm-3" style="border: 1px solid black;float:left;background-color:#DFBD7C">
                     <h1 class="h1" style="text-align:center">Garaje</h1>
                     <form action="./DomoticaEnCasa.php" method="POST" style="padding:10 auto;text-align:center; border: 2px solid black;background-color:white">
@@ -303,6 +312,7 @@ if (isset($_POST['alarma'])){
                         <p></p>
                     </form>
                 </div>
+                                                    <!--PASILLO-->
                 <div class="col-sm-3" style="border: 1px solid black;float:left;background-color:#DFBD7C">
                     <h1 class="h1" style="text-align:center">Pasillo</h1>
                     <form action="./DomoticaEnCasa.php" method="POST" style="padding:10 auto;text-align:center; border: 2px solid black;background-color:white">
@@ -320,13 +330,14 @@ if (isset($_POST['alarma'])){
             <div class="col-sm-12" style="text-align:center">
                     </html>
                     <?php
-
+                                        //CONSULTA PARA OBTENER TEMPERATURA Y HUMEDAD
                     $consulta = $conexion->query("SELECT * FROM HistorialTemperatura ORDER by IDRegistro DESC LIMIT 1 ");
                     while ($lugar = $consulta->fetch(2)){
                         $temperatura = $lugar['Temperatura'];
                         $humedad = $lugar['Humedad'];
                         
 			echo "<br><br>";
+                            //MOSTRAR Tª y HUMEDAD
 			echo "<center>";
 				echo "<table style='text-align:center;'>";
 					echo "<tr>";
