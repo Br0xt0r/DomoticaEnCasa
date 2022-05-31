@@ -29,10 +29,10 @@ int ledMaquinas = 47;
 int ledPasillo = 48;
 const byte pinBuzzer = 3;
 const int PIRPin = 5;
+String comando = "";
 
 boolean alarma = false;   //AL COMIENZO LA ALARMA ESTARÁ APAGADA
 
-String comando = "";
 void setup(){
   Serial.begin(9600);   //SE INICIA EL PUERTO SERIAL A 9600 BAUDIOS
   dht.begin();  //COMIENZO DE SENSOR TEMPERATURA
@@ -65,24 +65,22 @@ void setup(){
     digitalWrite(ledVerde, HIGH);
   }
 
-  servo.attach(9);
+  servo.attach(9);  //SE ESTABLECE EL PIN DEL SERVO AL 9
   
 }
 
 void loop(){
-
   
-  //Al principio comando = ""
   int i;
-  
-  comando = "";  
+  comando = "";  //AL PRINCIPIO COMANDO = ""
+
   int value=digitalRead(PIRPin);      //LECTURA DE PIN PIR
+
   if ((value == HIGH) && (alarma==true)){
     EasyBuzzer.singleBeep(10,2);
     delay(2000);
     EasyBuzzer.stopBeep();
   }
-
   
   //DECLARACION DE COMANDOS
   if (Serial.available()>0){
@@ -90,8 +88,6 @@ void loop(){
                                                       //PUERTO SERIAL SE GUARDAN EN "comando"
     delay(100);
     //Serial.println(comando);
-
-
     //ALARMA
     if(comando=="encender_alarma"){
       if (alarma==false){
@@ -101,53 +97,20 @@ void loop(){
         EasyBuzzer.singleBeep(10,2);    //PITIDOS
         delay(1000);
         EasyBuzzer.stopBeep();
-        
       }
       MostrarTemperatura();
     }
     
     if(comando=="apagar_alarma") {
       if (alarma==true){
-        //Serial.println("Se ha desactivado la alarma");
         delay(100);
         digitalWrite(ledBlanco, LOW);
         digitalWrite(ledVerde, HIGH);
         alarma=false;
-        
       }
       MostrarTemperatura();
       
     }
-
-
-    //SENSOR TEMPERATURA
-
-
-//              ***ARREGLAR ESTA PARTE, MANDAR TEMPERATURA Y HUMEDAD AL ARRANCAR Y LEERLA***
-    
-    //Serial.print(humedad);
-    //Serial.print("% ");
-    //Serial.print("Temperatura: ");
-    //Serial.print(temperatura);
-    //Serial.print("C");
-    /*if (comando=="mostrar_valores"){
-      Serial.print("Humedad: ");
-      Serial.print(humedad);
-      Serial.print("% ");
-      Serial.print("Temperatura: ");
-      Serial.print(temperatura);
-      Serial.print("C");
-
-        
-      
-      //delay(500);
-      //delay(500);
-      
-    }*/
-
-
-
-
 
     //LUCES DORMITORIO
     if (comando=="apagar_luz_dormitorio") {
@@ -252,7 +215,6 @@ void loop(){
       MostrarTemperatura();
     }
 
-
     //SERVO GARAJE ABRIR/CERRAR   REVISAR ANGULOS SERVO
     if (comando=="abrir_garaje") {
       servo.write(180);
@@ -271,6 +233,7 @@ void RGB_color(int red_light_value, int green_light_value, int blue_light_value)
     analogWrite(green_light_pin, green_light_value);
     analogWrite(blue_light_pin, blue_light_value);
 } 
+//SE CREA LA FUNCION MOSTRAR TEMPERATURA PARA QUE MUESTRE LA TEMPERATURA
 void MostrarTemperatura(){
     delay(200);
     float temperatura = dht.readTemperature();
