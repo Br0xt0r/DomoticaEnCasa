@@ -1,6 +1,16 @@
 <?php
+
 include ('./conectar.php');
 $conexion = conectarBase();
+session_start();
+if (!isset($_SESSION['usuarios'])){
+    header('Location: login.php');
+}
+
+if (isset($_POST['CerrarSesion'])){
+    session_destroy();
+    header('Location: login.php');
+}
 echo "<title>Domotica en casa</title>";
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
@@ -335,6 +345,12 @@ if (isset($_POST['alarma'])){
 						echo "<td>Temperatura: $temperatura</td>";
 					echo "</tr>";
 				echo "</table>";
+			echo "</center>";
+            echo "<br>";
+			echo "<center>";
+				echo "<form method='POST' action='DomoticaEnCasa.php'>";
+					echo "<input type='submit' name='CerrarSesion' value='Cerrar Sesion'/>";
+				echo "</form>";
 			echo "</center>";
                     }
                     ?>
